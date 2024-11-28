@@ -1,24 +1,23 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BuildingPage from './pages/BuildingPage';
 import DepartmentPage from './pages/DepartmentPage';
-import Chatbot from './components/Chatbot';
+import DepartmentOverview from './pages/DepartmentOverview';
+import DepartmentCurriculum from './pages/DepartmentCurriculum';
+import DepartmentHallway from './pages/DepartmentHallway';
+import DepartmentClassroom from './pages/DepartmentClassroom';
 
 function App() {
   return (
     <Router>
-      <div>
-        <Routes>
-          {/* 홈 페이지 라우트 */}
-          <Route path="/" element={<HomePage />} />
-          {/* 건물 페이지 라우트 */}
-          <Route path="/building/:building" element={<BuildingPage />} />
-          {/* 학과 페이지 라우트 */}
-          <Route path="/department/:department" element={<DepartmentPage />} />
-        </Routes>
-        <Chatbot /> {/* 챗봇 추가 */}
-      </div>
+      <Routes>
+        <Route path="/building/:building" element={<BuildingPage />} />
+        <Route path="/department/:department" element={<DepartmentPage />} />
+        <Route path="/department/:department/overview" element={<DepartmentOverview />} />
+        <Route path="/department/:department/curriculum" element={<DepartmentCurriculum />} />
+        <Route path="/department/:department/hallway" element={<DepartmentHallway />} />
+        <Route path="/department/:department/classroom" element={<DepartmentClassroom />} />
+      </Routes>
     </Router>
   );
 }
