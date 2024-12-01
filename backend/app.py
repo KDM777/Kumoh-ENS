@@ -1,12 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import torch
+import faiss
+import numpy as np
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
+import torch
 import json
 import os.path as osp
 from typing import Union
 import gc
+from sentence_transformers import SentenceTransformer
 
 
 # Prompter 클래스 정의
@@ -25,8 +28,9 @@ class Prompter:
         if self._verbose:
             print(f"Using prompt template {template_name}: {self.template['설명']}")
 
-    def generate_prompt(self, instruction: str, label: Union[None, str] = None) -> str:
-        res = self.template["prompt_no_input"].format(instruction=instruction)
+    def generate_prompt(self, instruction: str, context: str, label: Union[None, str] = None) -> str:
+        # 문맥과 질문을 통합한 프롬프트 생성
+        res = self.template["prompt_no_input"].format(instruction=instruction, context=context)
         if label:
             res = f"{res}{label}"
         if self._verbose:
@@ -37,39 +41,52 @@ class Prompter:
         split_pattern = self.template.get("response_split", "### 응답:")
         if split_pattern in output:
             response = output.split(split_pattern)[1].strip()
-            return self._remove_redundancy(response)
+            return response
         else:
             print(f"Warning: '{split_pattern}' not found in output. Returning full output.")
-            return self._remove_redundancy(output.strip())
+            return output.strip()
 
-    def _remove_redundancy(self, text):
-        # 중복된 문장 제거
-        sentences = text.split(". ")
-        unique_sentences = list(dict.fromkeys(sentences))  # 중복 제거
-        return ". ".join(unique_sentences).strip()
+
+# 문서 저장소 정의
+class DocumentStore:
+    def __init__(self):
+        self.model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+        self.index = None
+        self.docs = []
+
+    def add_documents(self, documents):
+        self.docs.extend(documents)
+        embeddings = self.model.encode(documents)
+        if self.index is None:
+            self.index = faiss.IndexFlatL2(embeddings.shape[1])
+        self.index.add(embeddings)
+
+    def search(self, query, top_k=3):
+        query_embedding = self.model.encode([query])
+        distances, indices = self.index.search(np.array(query_embedding).astype('float32'), top_k)
+        results = [self.docs[i] for i in indices[0]]
+        return results
 
 
 # Chatbot 클래스 정의
-class Chatbot:
+class RAGChatbot:
     def __init__(self, model_name, peft_weights_path, template_name="alpaca", verbose=False):
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16)
         self.model = PeftModel.from_pretrained(self.model, peft_weights_path)
-        self.model.to("cuda")  # GPU 사용
+        self.model.to("cuda")
         self.prompter = Prompter(template_name=template_name, verbose=verbose)
 
-    def generate_response(self, instruction, additional_instruction=False):
-        if additional_instruction:
-            instruction = f"다음 질문에 간단히 답해주세요: {instruction}\n"
-        prompt = self.prompter.generate_prompt(instruction)
+    def generate_response(self, query, context):
+        prompt = self.prompter.generate_prompt(instruction=query, context=context)
         inputs = self.tokenizer(prompt, return_tensors="pt").to("cuda")
         output_tokens = self.model.generate(
             **inputs,
-            max_new_tokens=150,  # 응답 길이 제한
-            temperature=0.5,  # 다양성 조정
-            top_k=40,  # 상위 40개 후보 고려
-            top_p=0.85,  # 누적 확률 기준으로 후보 선택
-            no_repeat_ngram_size=2  # 반복 제거
+            max_new_tokens=150,
+            temperature=0.5,
+            top_k=40,
+            top_p=0.85,
+            no_repeat_ngram_size=3
         )
         output = self.tokenizer.decode(output_tokens[0], skip_special_tokens=True)
         return self.prompter.get_response(output)
@@ -77,33 +94,53 @@ class Chatbot:
 
 # Flask 애플리케이션 설정
 app = Flask(__name__)
-CORS(app)  # React와의 통신 허용
+CORS(app)
 
-# 모델 및 LoRA 가중치 경로 설정
+# 문서 저장소 및 Chatbot 초기화
+doc_store = DocumentStore()
+doc_store.add_documents([
+    "금오공대는 한국의 기술 중심 대학으로 잘 알려져 있습니다.",
+    "금오공대는 산업 기술 연구와 혁신적인 엔지니어링 교육에 중점을 둡니다.",
+    "금오공대 출신 유명 인물로는 A씨가 있습니다. 그는 기술 혁신으로 큰 기여를 했습니다."
+])
+
 MODEL_NAME = "Bllossom/llama-3.2-Korean-Bllossom-3B"
 PEFT_WEIGHTS_PATH = "./lora-alpaca"
-chatbot = Chatbot(MODEL_NAME, PEFT_WEIGHTS_PATH)
+chatbot = RAGChatbot(MODEL_NAME, PEFT_WEIGHTS_PATH)
 
-# Flask API 엔드포인트
+
 @app.route('/api/chat', methods=['POST'])
 def chat():
     try:
         # 사용자 요청에서 입력 텍스트 추출
-        user_message = request.json.get('message', '')
-        response = chatbot.generate_response(user_message, additional_instruction=True)
+        data = request.json
+        if not data or 'message' not in data:
+            return jsonify({'error': 'Invalid request format. "message" field is required.'}), 400
 
-        # 응답 반환
+        user_message = data['message'].strip()
+        if not user_message:
+            return jsonify({'error': 'Empty message provided.'}), 400
+
+        # RAG를 위한 문서 검색
+        relevant_docs = doc_store.search(user_message)
+        context = "\n".join(relevant_docs)
+
+        # Chatbot 응답 생성
+        response = chatbot.generate_response(user_message, context)
+
         return jsonify({'reply': response})
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': f'Internal server error: {str(e)}'}), 500
 
 
 @app.route('/clear-cache', methods=['POST'])
 def clear_cache():
-    # GPU 메모리 캐시 비우기
-    torch.cuda.empty_cache()
-    gc.collect()
-    return jsonify({'status': 'Cache cleared successfully!'})
+    try:
+        torch.cuda.empty_cache()
+        gc.collect()
+        return jsonify({'status': 'Cache cleared successfully!'})
+    except Exception as e:
+        return jsonify({'error': f'Failed to clear cache: {str(e)}'}), 500
 
 
 if __name__ == '__main__':
