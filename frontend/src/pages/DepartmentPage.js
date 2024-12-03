@@ -21,7 +21,8 @@ function DepartmentPage() {
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       <h1>{departmentName}</h1> {/* 한글 학과 이름 표시 */}
       <h2>학과 세부 정보</h2>
-      <ul>
+      {/* 왼쪽 정렬을 적용한 ul */}
+      <ul style={{ textAlign: 'left', display: 'inline-block', margin: '0 auto', listStyle: 'none', padding: 0 }}>
         <li>
           <a href={`/department/${department}/overview`}>학과 개요</a>
         </li>

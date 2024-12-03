@@ -10,6 +10,7 @@ import os.path as osp
 from typing import Union
 import gc
 from sentence_transformers import SentenceTransformer
+import pandas as pd
 
 
 # Prompter 클래스 정의
@@ -30,7 +31,15 @@ class Prompter:
 
     def generate_prompt(self, instruction: str, context: str, label: Union[None, str] = None) -> str:
         # 문맥과 질문을 통합한 프롬프트 생성
-        res = self.template["prompt_no_input"].format(instruction=instruction, context=context)
+        res = f"""
+        ### 문맥:
+        {context}
+
+        ### 질문:
+        {instruction}
+
+        ### 응답:
+        """
         if label:
             res = f"{res}{label}"
         if self._verbose:
@@ -50,7 +59,7 @@ class Prompter:
 # 문서 저장소 정의
 class DocumentStore:
     def __init__(self):
-        self.model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+        self.model = SentenceTransformer('BAAI/bge-m3')
         self.index = None
         self.docs = []
 
@@ -82,13 +91,17 @@ class RAGChatbot:
         inputs = self.tokenizer(prompt, return_tensors="pt").to("cuda")
         output_tokens = self.model.generate(
             **inputs,
-            max_new_tokens=150,
+            max_new_tokens=150, #max_new_tokens=150,
             temperature=0.5,
-            top_k=40,
+            top_k=40, #top_k=40
             top_p=0.85,
-            no_repeat_ngram_size=3
+            no_repeat_ngram_size=3,
+            eos_token_id=self.tokenizer.eos_token_id,  # 종료 토큰 설정
+            pad_token_id=self.tokenizer.pad_token_id   # 패딩 토큰 설정
         )
+
         output = self.tokenizer.decode(output_tokens[0], skip_special_tokens=True)
+        print("Model output:", output)  # 디버깅 출력
         return self.prompter.get_response(output)
 
 
@@ -98,16 +111,13 @@ CORS(app)
 
 # 문서 저장소 및 Chatbot 초기화
 doc_store = DocumentStore()
-doc_store.add_documents([
-    "금오공대는 한국의 기술 중심 대학으로 잘 알려져 있습니다.",
-    "금오공대는 산업 기술 연구와 혁신적인 엔지니어링 교육에 중점을 둡니다.",
-    "금오공대 출신 유명 인물로는 A씨가 있습니다. 그는 기술 혁신으로 큰 기여를 했습니다."
-])
+df = pd.read_csv('kumoh_data.csv')
+doc_store.add_documents(df['text'].tolist())
+
 
 MODEL_NAME = "Bllossom/llama-3.2-Korean-Bllossom-3B"
 PEFT_WEIGHTS_PATH = "./lora-alpaca"
 chatbot = RAGChatbot(MODEL_NAME, PEFT_WEIGHTS_PATH)
-
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
@@ -123,6 +133,7 @@ def chat():
 
         # RAG를 위한 문서 검색
         relevant_docs = doc_store.search(user_message)
+        print(relevant_docs)
         context = "\n".join(relevant_docs)
 
         # Chatbot 응답 생성
@@ -132,7 +143,6 @@ def chat():
     except Exception as e:
         return jsonify({'error': f'Internal server error: {str(e)}'}), 500
 
-
 @app.route('/clear-cache', methods=['POST'])
 def clear_cache():
     try:
@@ -141,7 +151,6 @@ def clear_cache():
         return jsonify({'status': 'Cache cleared successfully!'})
     except Exception as e:
         return jsonify({'error': f'Failed to clear cache: {str(e)}'}), 500
-
 
 if __name__ == '__main__':
     app.run(debug=True)
