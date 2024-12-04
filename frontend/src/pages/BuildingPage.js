@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import './BuildingPage.css'; // CSS 파일 import
 
-// 영어 ID와 한글 학과 이름 매핑
 const departments = {
   'digital-building': [
     { id: 'computer-engineering', name: '컴퓨터공학과' },
@@ -26,20 +26,20 @@ const buildingNames = {
 };
 
 function BuildingPage() {
-  const { building } = useParams(); // URL에서 건물 ID 가져오기
+  const { building } = useParams();
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>{buildingNames[building]}</h1> {/* 건물 이름 표시 */}
+    <div className="building-container">
+      <h1 className="building-title">{buildingNames[building]}</h1>
       {departments[building]?.map((department) => (
         <Link
-          key={department.id} // 영어 ID 사용
-          to={`/department/${department.id}`} // URL에 영어 ID 추가
-          style={{ display: 'block', margin: '20px', fontSize: '18px', textDecoration: 'none' }}
+          key={department.id}
+          to={`/department/${department.id}`}
+          className="department-link"
         >
-          {department.name} {/* 한글 학과 이름 표시 */}
+          {department.name}
         </Link>
-      )) || <p>학과 정보가 없습니다.</p>}
+      )) || <p className="no-department">학과 정보가 없습니다.</p>}
     </div>
   );
 }

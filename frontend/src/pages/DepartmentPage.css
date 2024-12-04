@@ -1,0 +1,57 @@
+/* 전체 컨테이너 스타일 */
+.department-container {
+    text-align: center;
+    margin-top: 50px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* 학과 이름 스타일 */
+  .department-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  /* 학과 세부 정보 제목 스타일 */
+  .department-subtitle {
+    font-size: 24px;
+    color: #34495e;
+    margin-bottom: 20px;
+  }
+  
+  /* 리스트 컨테이너 스타일 */
+  .department-list {
+    text-align: left;
+    display: inline-block;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* 리스트 아이템 스타일 */
+  .department-item {
+    margin: 10px 0;
+  }
+  
+  /* 링크 스타일 */
+  .department-link {
+    text-decoration: none;
+    color: #3498db;
+    font-size: 18px;
+    padding: 10px 15px;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    display: inline-block;
+    width: 200px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  /* 링크 호버 효과 */
+  .department-link:hover {
+    background-color: #3498db;
+    color: #fff;
+    transform: scale(1.05);
+  }
+  

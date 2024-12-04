@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import './DepartmentPage.css'; // CSS 파일 import
 
 // 영어 ID와 한글 학과 이름 매핑
 const departmentNames = {
@@ -18,22 +19,29 @@ function DepartmentPage() {
   const departmentName = departmentNames[department]; // 한글 이름으로 매핑
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>{departmentName}</h1> {/* 한글 학과 이름 표시 */}
-      <h2>학과 세부 정보</h2>
-      {/* 왼쪽 정렬을 적용한 ul */}
-      <ul style={{ textAlign: 'left', display: 'inline-block', margin: '0 auto', listStyle: 'none', padding: 0 }}>
-        <li>
-          <a href={`/department/${department}/overview`}>학과 개요</a>
+    <div className="department-container">
+      <h1 className="department-title">{departmentName}</h1> {/* 한글 학과 이름 표시 */}
+      <h2 className="department-subtitle">학과 세부 정보</h2>
+      <ul className="department-list">
+        <li className="department-item">
+          <a href={`/department/${department}/overview`} className="department-link">
+            학과 개요
+          </a>
         </li>
-        <li>
-          <a href={`/department/${department}/curriculum`}>커리큘럼</a>
+        <li className="department-item">
+          <a href={`/department/${department}/curriculum`} className="department-link">
+            커리큘럼
+          </a>
         </li>
-        <li>
-          <a href={`/department/${department}/hallway`}>복도</a>
+        <li className="department-item">
+          <a href={`/department/${department}/hallway`} className="department-link">
+            복도
+          </a>
         </li>
-        <li>
-          <a href={`/department/${department}/classroom`}>강의실</a>
+        <li className="department-item">
+          <a href={`/department/${department}/classroom`} className="department-link">
+            강의실
+          </a>
         </li>
       </ul>
     </div>

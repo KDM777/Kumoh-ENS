@@ -1,0 +1,37 @@
+/* 전체 컨테이너 스타일 */
+.home-container {
+    text-align: center;
+    margin-top: 50px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* 제목 스타일 */
+  .home-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  /* 건물 링크 스타일 */
+  .building-link {
+    display: block;
+    margin: 20px auto;
+    font-size: 18px;
+    text-decoration: none;
+    color: #3498db;
+    padding: 10px 15px;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    width: 200px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  /* 링크 호버 효과 */
+  .building-link:hover {
+    background-color: #3498db;
+    color: #fff;
+    transform: scale(1.05);
+  }
+  
