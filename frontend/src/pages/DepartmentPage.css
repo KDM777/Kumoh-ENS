@@ -1,57 +1,58 @@
-/* 전체 컨테이너 스타일 */
 .department-container {
-    text-align: center;
-    margin-top: 50px;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* 학과 이름 스타일 */
-  .department-title {
-    font-size: 32px;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 20px;
-  }
-  
-  /* 학과 세부 정보 제목 스타일 */
-  .department-subtitle {
-    font-size: 24px;
-    color: #34495e;
-    margin-bottom: 20px;
-  }
-  
-  /* 리스트 컨테이너 스타일 */
-  .department-list {
-    text-align: left;
-    display: inline-block;
-    margin: 0 auto;
-    list-style: none;
-    padding: 0;
-  }
-  
-  /* 리스트 아이템 스타일 */
-  .department-item {
-    margin: 10px 0;
-  }
-  
-  /* 링크 스타일 */
-  .department-link {
-    text-decoration: none;
-    color: #3498db;
-    font-size: 18px;
-    padding: 10px 15px;
-    border: 2px solid #3498db;
-    border-radius: 8px;
-    display: inline-block;
-    width: 200px;
-    text-align: center;
-    transition: all 0.3s ease;
-  }
-  
-  /* 링크 호버 효과 */
-  .department-link:hover {
-    background-color: #3498db;
-    color: #fff;
-    transform: scale(1.05);
-  }
-  
+text-align: center;
+margin-top: 20px;
+}
+
+.department-title {
+font-size: 28px;
+font-weight: bold;
+margin-bottom: 10px;
+color: #2c3e50;
+}
+
+.department-subtitle {
+font-size: 20px;
+margin-bottom: 20px;
+color: #34495e;
+}
+
+/* 학과 메뉴를 가로로 배치 */
+.department-list {
+display: flex;
+justify-content: center; /* 가운데 정렬 */
+gap: 20px; /* 각 항목 간 간격 */
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+.department-item {
+font-size: 16px;
+}
+
+.department-link {
+text-decoration: none;
+color: #3498db;
+padding: 10px 15px;
+border: 2px solid #3498db;
+border-radius: 5px;
+transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.department-link:hover {
+background-color: #3498db;
+color: #fff;
+}
+
+/* 학과 이미지 스타일 */
+.department-image-container {
+margin-top: 20px;
+}
+
+.department-image {
+width: 80%;
+max-width: 600px;
+border-radius: 8px;
+border: 1px solid #ddd;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

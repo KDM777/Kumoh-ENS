@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 const departmentNames = {
   'computer-engineering': '컴퓨터공학과',
   'software-engineering': '컴퓨터소프트웨어공학과',
-  'electronic-engineering': '전자공학과',
-  'math-bigdata': '수리빅데이터공학과',
+  'electronic-engineering': '전자공학부',
+  'math-bigdata': '수리빅데이터학과',
   'mechanical-engineering': '기계공학과',
   'industrial-engineering': '산업공학과',
   'english-literature': '영어영문학과',
@@ -18,8 +18,8 @@ function ClassroomPage() {
   const departmentName = departmentNames[department]; // 영어 ID를 한글 이름으로 매핑
 
   // 학과별 강의실 이미지 데이터
-  const classroomImages = {
-    컴퓨터공학과: 'https://kumoh-intro-media.s3.ap-southeast-2.amazonaws.com/ce_cls.mp4',
+  const classroomVideo = {
+    컴퓨터공학과: 'https://www.youtube.com/embed/BVilSZW4ySQ',
     컴퓨터소프트웨어공학과: 'https://example.com/컴퓨터소프트웨어공학과-강의실.jpg',
     전자공학과: 'https://example.com/전자공학과-강의실.jpg',
     수리빅데이터공학과: 'https://example.com/수리빅데이터공학과-강의실.jpg',
@@ -27,12 +27,16 @@ function ClassroomPage() {
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>{departmentName} - 강의실</h1>
-      <video
-        src={classroomImages[departmentName] || 'https://example.com/default-image.jpg'} // 기본 이미지 설정
-        alt={`${departmentName} 강의실`}
-        style={{ width: '80%', border: '1px solid #ddd', borderRadius: '8px' }}
-      />
+      <h1>{departmentName} - 복도</h1>
+      <iframe
+        width="80%"
+        height="800"
+        src={classroomVideo[departmentName]} //|| 'https://example.com/default-video.mp4'} // 기본 동영상 설정
+        frameBorder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        title="360 Video"
+    ></iframe>
     </div>
   );
 }

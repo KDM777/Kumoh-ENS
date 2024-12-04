@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 const departmentNames = {
   'computer-engineering': '컴퓨터공학과',
   'software-engineering': '컴퓨터소프트웨어공학과',
-  'electronic-engineering': '전자공학과',
-  'math-bigdata': '수리빅데이터공학과',
+  'electronic-engineering': '전자공학부',
+  'math-bigdata': '수리빅데이터학과',
   'mechanical-engineering': '기계공학과',
   'industrial-engineering': '산업공학과',
   'english-literature': '영어영문학과',
@@ -19,7 +19,7 @@ function OverviewPage() {
 
   // 학과별 개요 데이터
   const overviewData = {
-    컴퓨터공학과: '컴퓨터공학과는 컴퓨터 시스템 및 소프트웨어 개발에 대한 심도 있는 학습을 제공합니다.',
+    컴퓨터공학과: '컴퓨터공학과는 지식정보사회의 핵심학과이다. 최근 4차산업혁명과 언택트 시대가 열리면서 컴퓨터에 대한 지식(Knowledge)과 활용 기술(Skill)을 필요로하는 ‘SW 융합’, ‘AI 융합’을 통한 산업간 융합을 이끌어 나갈 학과로 더욱 주목받고 있다.',
     컴퓨터소프트웨어공학과: '컴퓨터소프트웨어공학과는 소프트웨어 개발과 시스템 설계를 중점적으로 다룹니다.',
     전자공학과: '전자공학과는 전자기술과 통신 시스템에 대한 전반적인 지식을 제공합니다.',
     수리빅데이터공학과: '수리빅데이터공학과는 데이터 분석 및 수학적 모델링을 학습합니다.',

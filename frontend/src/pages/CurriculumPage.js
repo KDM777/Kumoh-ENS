@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 const departmentNames = {
   'computer-engineering': '컴퓨터공학과',
   'software-engineering': '컴퓨터소프트웨어공학과',
-  'electronic-engineering': '전자공학과',
-  'math-bigdata': '수리빅데이터공학과',
+  'electronic-engineering': '전자공학부',
+  'math-bigdata': '수리빅데이터학과',
   'mechanical-engineering': '기계공학과',
   'industrial-engineering': '산업공학과',
   'english-literature': '영어영문학과',
@@ -14,27 +14,22 @@ const departmentNames = {
 };
 
 function CurriculumPage() {
-  const { department } = useParams(); // URL에서 영어 ID 가져오기
-  const departmentName = departmentNames[department]; // 영어 ID를 한글 이름으로 매핑
+    const { department } = useParams(); // URL에서 영어 ID 가져오기
+    const departmentName = departmentNames[department]; // 영어 ID를 한글 이름으로 매핑
 
-  // 학과별 커리큘럼 데이터
-  const curriculumData = {
-    컴퓨터공학과: ['자료구조', '운영체제', '컴퓨터 네트워크', '소프트웨어 공학'],
-    컴퓨터소프트웨어공학과: ['프로그래밍 언어론', '소프트웨어 테스트', '모바일 프로그래밍'],
-    전자공학과: ['전자회로', '신호처리', '마이크로컨트롤러'],
-    수리빅데이터공학과: ['확률과 통계', '빅데이터 분석', '머신러닝'],
-  };
-
-  return (
+    const s3BaseUrl = "https://kumoh-intro-media.s3.ap-southeast-2.amazonaws.com";
+    const fileName = `${department}-curri.png`; // 학과 이름을 기반으로 파일명 생성
+    const fileUrl = `${s3BaseUrl}/${fileName}`; // 완전한 파일 URL
+    return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>{departmentName} - 커리큘럼</h1>
-      <ul>
-        {curriculumData[departmentName]?.map((course, index) => (
-          <li key={index}>{course}</li>
-        )) || <p>커리큘럼 정보가 없습니다.</p>}
-      </ul>
+        <h1>{department} - 커리큘럼</h1>
+        <img
+        src={fileUrl}
+        alt={`${department} 커리큘럼`}
+        style={{ width: '80%', border: '1px solid #ddd', borderRadius: '8px' }}
+        />
     </div>
-  );
+    );
 }
 
 export default CurriculumPage;

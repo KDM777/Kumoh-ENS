@@ -1,37 +1,72 @@
-/* 전체 컨테이너 스타일 */
+/* 전체 컨테이너 */
 .home-container {
-    text-align: center;
-    margin-top: 50px;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* 제목 스타일 */
-  .home-title {
-    font-size: 32px;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 20px;
-  }
-  
-  /* 건물 링크 스타일 */
-  .building-link {
-    display: block;
-    margin: 20px auto;
-    font-size: 18px;
-    text-decoration: none;
-    color: #3498db;
-    padding: 10px 15px;
-    border: 2px solid #3498db;
-    border-radius: 8px;
-    width: 200px;
-    text-align: center;
-    transition: all 0.3s ease;
-  }
-  
-  /* 링크 호버 효과 */
-  .building-link:hover {
-    background-color: #3498db;
-    color: #fff;
-    transform: scale(1.05);
-  }
-  
+font-family: 'Arial', sans-serif;
+}
+
+/* 공통 섹션 스타일 */
+.building-section {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 40px 20px;
+color: white;
+}
+
+/* 디지털관 배경 */
+.digital-building {
+background-color: #3772FF; 
+}
+
+/* 테크노관 배경 */
+.techno-building {
+background-color: #EF709D; 
+}
+
+/* 글로벌관 배경 */
+.global-building {
+background-color: #70E4EF; /* 연한 노란색 */
+}
+
+/* 건물 링크 스타일 */
+.building-link {
+display: inline-block;
+font-size: 24px;
+font-weight: bold;
+text-decoration: none;
+color: white;
+background-color: rgba(0, 0, 0, 0.3);
+padding: 10px 20px;
+border-radius: 8px;
+margin-bottom: 20px;
+transition: all 0.3s ease;
+}
+
+.building-link:hover {
+background-color: rgba(255, 255, 255, 0.3);
+transform: scale(1.1);
+}
+
+/* 키워드 섹션 스타일 */
+.building-keywords {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 10px;
+margin-top: 10px;
+}
+
+.keyword-item {
+background-color: rgba(255, 255, 255, 0.3);
+color: white;
+padding: 8px 15px;
+border-radius: 15px;
+font-size: 16px;
+transition: all 0.2s ease;
+}
+
+.keyword-item:hover {
+background-color: white;
+color: #2c3e50;
+transform: scale(1.1);
+}

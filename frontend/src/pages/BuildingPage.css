@@ -1,44 +1,44 @@
-/* 전체 컨테이너 스타일 */
 .building-container {
-    text-align: center;
-    margin-top: 50px;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* 건물 이름 스타일 */
-  .building-title {
-    font-size: 32px;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 20px;
-  }
-  
-  /* 학과 링크 스타일 */
-  .department-link {
-    display: block;
-    margin: 20px auto;
-    font-size: 18px;
-    text-decoration: none;
-    color: #3498db;
-    padding: 10px 15px;
-    border: 2px solid #3498db;
-    border-radius: 8px;
-    width: 200px;
-    text-align: center;
-    transition: all 0.3s ease;
-  }
-  
-  /* 링크 호버 효과 */
-  .department-link:hover {
-    background-color: #3498db;
-    color: #fff;
-    transform: scale(1.05);
-  }
-  
-  /* "학과 정보가 없습니다" 메시지 스타일 */
-  .no-department {
-    font-size: 16px;
-    color: #e74c3c;
-    margin-top: 20px;
-  }
-  
+text-align: center;
+margin-top: 20px;
+}
+
+.building-title {
+font-size: 24px;
+margin-bottom: 20px;
+font-weight: bold;
+color: #333;
+}
+
+.building-image-container {
+margin-top: 20px;
+}
+
+.building-image {
+width: 80%;
+max-width: 500px;
+border-radius: 8px;
+border: 1px solid #ddd;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.department-link {
+display: inline-block;
+margin: 10px;
+padding: 10px 15px;
+text-decoration: none;
+color: #3498db;
+border: 2px solid #3498db;
+border-radius: 5px;
+transition: all 0.3s ease;
+}
+
+.department-link:hover {
+background-color: #3498db;
+color: white;
+}
+
+.no-department {
+color: #999;
+font-size: 16px;
+}
