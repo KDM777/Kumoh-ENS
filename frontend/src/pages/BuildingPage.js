@@ -15,10 +15,18 @@ const departments = {
   ],
   'techno-building': [
     { id: 'mechanical-engineering', name: '기계공학과' },
-    { id: 'industrial-engineering', name: '산업공학과' },
+    { id: 'mechanical-system-engineering', name: '기계시스템공학부' },
+    { id: 'materials-engineering', name: '신소재공학부' },
   ],
   'global-building': [
-    { id: 'english-literature', name: '영어영문학과' },
+    { id: 'architecture', name: '건축학부' },
+    { id: 'industrial-engineering', name: '산업공학과' },
+    { id: 'polymer-engineering', name: '고분자공학과' },
+    { id: 'materials-design', name: '소재디자인공학과' },
+    { id: 'chemical-engineering', name: '화학공학과' },
+    { id: 'environmental-engineering', name: '환경공학과' },
+    { id: 'chemical-life-sciences', name: '화학생명과학과' },
+    { id: 'civil-engineering', name: '토목공학과' },
     { id: 'business-management', name: '경영학과' },
   ],
 };

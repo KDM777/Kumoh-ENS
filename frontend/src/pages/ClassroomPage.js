@@ -20,14 +20,14 @@ function ClassroomPage() {
   // 학과별 강의실 이미지 데이터
   const classroomVideo = {
     컴퓨터공학과: 'https://www.youtube.com/embed/BVilSZW4ySQ',
-    컴퓨터소프트웨어공학과: 'https://example.com/컴퓨터소프트웨어공학과-강의실.jpg',
-    전자공학과: 'https://example.com/전자공학과-강의실.jpg',
-    수리빅데이터공학과: 'https://example.com/수리빅데이터공학과-강의실.jpg',
+    컴퓨터소프트웨어공학과: 'https://www.youtube.com/embed/8q0CuXynhxg',
+    전자공학과: 'https://www.youtube/embed/lFgC9lFFm1k',
+    수리빅데이터공학과: 'https://www.youtube/embed/nMwrqscxMUc',
   };
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>{departmentName} - 복도</h1>
+      <h1>{departmentName} - 강의실</h1>
       <iframe
         width="80%"
         height="800"

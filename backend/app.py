@@ -112,7 +112,7 @@ CORS(app)
 # 문서 저장소 및 Chatbot 초기화
 doc_store = DocumentStore()
 df = pd.read_csv('kumoh_data.csv')
-doc_store.add_documents(df['text'].tolist())
+doc_store.add_documents(df['merged'].tolist())
 
 
 MODEL_NAME = "Bllossom/llama-3.2-Korean-Bllossom-3B"

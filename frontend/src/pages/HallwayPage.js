@@ -16,9 +16,9 @@ const departmentNames = {
 // 학과별 복도 동영상 URL 매핑
 const hallwayVideos = {
   '컴퓨터공학과': 'https://www.youtube.com/embed/iPgA7xqC3hs',
-  '컴퓨터소프트웨어공학과': 'https://example.com/컴퓨터소프트웨어공학과-복도.mp4',
-  '전자공학과': 'https://example.com/전자공학과-복도.mp4',
-  '수리빅데이터공학과': 'https://example.com/수리빅데이터공학과-복도.mp4',
+  '컴퓨터소프트웨어공학과': 'https://www.youtube/embed/wGeJeyEImig',
+  '전자공학과': 'https://www.youtube/embed/CnkwfBIA9sg',
+  '수리빅데이터공학과': 'https://www.youtube/embed/CnkwfBIA9sg',
   '기계공학과': 'https://example.com/기계공학과-복도.mp4',
   '산업공학과': 'https://example.com/산업공학과-복도.mp4',
   '영어영문학과': 'https://example.com/영어영문학과-복도.mp4',
@@ -29,6 +29,7 @@ function HallwayPage() {
   const { department } = useParams(); // URL에서 영어 ID 가져오기
   const departmentName = departmentNames[department]; // 영어 ID를 한글 이름으로 매핑
 
+  
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       <h1>{departmentName} - 복도</h1>
