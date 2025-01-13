@@ -1,75 +1,36 @@
-<<<<<<< HEAD
 # Kumoh-ENS
 Kumoh National Institute of Technology Explore, Navigate School
 =======
-# Getting Started with Create React App
+# Background
+학과를 정하지 못하거나 정보를 얻고 싶은 금오공대 입학을 원하는 학생, 부모님에게 정보를 제공하기 위해 만들었습니다. 각 관별로 정보를 얻을 수 있게 카테고리화 하였습니다. 기본적으로 커리큘럼, 학과 개요, 복도, 강의실을 볼 수 있습니다. 복도와 강의실의 경우 360도 카메라로 찍은 동영상을 유튜브에 업로드해 제공하고 있습니다.
+정보를 확인하다가 궁금한 점이 생긴다면 우측 아래에 있는 챗봇을 통해 질문을 할 수 있습니다.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Installation
+## Client
+```
+git clone https://https://github.com/KDM777/Kumoh-ENS
+cd frontend
+npm install
+npm start
+```
 
-## Available Scripts
+## Server
+Kumoh-ENS 폴더에서
+```
+cd backend
+python app.py
+```
+### 필요 라이브러리
 
-In the project directory, you can run:
+```
+flask_cors==5.0.0
+Flask==3.1.0
+torch==2.3.0
+transformers==4.46.3
+peft==0.13.2
+huggingface-hub==0.26.2
+```
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
->>>>>>> bf87d8f (Initialize project using Create React App)
+## Preview 
+![스크린샷 2025-01-13 161141](https://github.com/user-attachments/assets/fbc7008b-def5-42d3-84c3-96d33272bec9)
+![image](https://github.com/user-attachments/assets/cef1ec2c-2ecf-47cb-90bb-2df96f02ddfd)
